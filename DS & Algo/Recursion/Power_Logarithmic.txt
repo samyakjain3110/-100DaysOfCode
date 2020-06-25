@@ -1,0 +1,35 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        int x = scn.nextInt() ;
+        int n = scn.nextInt() ;
+        
+        System.out.println( power( x , n ) ) ;
+    }
+
+    public static int power(int x, int n){
+        // base case 
+        if( n <= 0 )
+        {
+            return 1 ;
+        }
+        
+        // call while climbing
+        int pow = power( x , n / 2 ) ;
+        
+        // return updated ans while descending down 
+        if( n % 2 == 0 )
+        {
+            return pow * pow ; 
+        }
+        else
+        {
+            return pow * pow * x ;
+        }
+    }
+
+}

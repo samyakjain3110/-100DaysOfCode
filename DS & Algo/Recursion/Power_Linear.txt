@@ -1,0 +1,29 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner( System.in ) ;
+        
+        int n = scn.nextInt() ;
+        int pow = scn.nextInt() ;
+        
+        System.out.println( power( n , pow ) ) ;
+    }
+
+    public static int power(int x, int n){
+        if( n <= 0 )
+        {
+            return 1 ;
+        }
+        
+        // make call while climbing up 
+        int pow = power( x , n - 1 ) ;
+        
+        // update the value while descending down
+        return pow * x ;    
+        
+    }
+
+}

@@ -1,0 +1,31 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        String str = scn.nextLine() ;
+        printPermutations( str , "" ) ;
+    }
+
+    public static void printPermutations(String qsf , String asf ) {
+        // base case
+        if( qsf.length() <= 1 )
+        {
+            System.out.println(asf + qsf ) ;
+            return ;
+        }
+        
+        // give chance to each character at first position
+        
+        for( int idx = 0 ; idx < qsf.length() ; idx++ )
+        {
+            String qsf_now =  qsf.substring(0,idx) + qsf.substring(idx + 1,qsf.length()) ;
+            Character ch = qsf.charAt(idx) ;
+            printPermutations( qsf_now , asf + ch ) ;
+        }
+        
+    }
+
+}

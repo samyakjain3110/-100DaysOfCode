@@ -1,0 +1,42 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+    Scanner scn = new Scanner(System.in) ;
+    String str = scn.nextLine() ;
+    
+    printKPC( str , "" ) ;
+    
+    }
+
+    static String arr[] = { ".;" , "abc" ,"def", "ghi" ,"jkl", "mno", "pqrs","tu" ,"vwx","yz"} ;
+
+    public static void printKPC(String qsf , String asf) {
+        // base case
+        if( qsf.length() <= 0 )
+        {
+            System.out.println(asf) ;
+            return ;
+        }
+        
+        // get digit pressed 
+        Character ch = qsf.charAt(0) ;
+        String q_left = qsf.substring(1) ;
+        String dig_letters = arr[ch - '0'] ;
+        
+        
+        // make call for each character of the digit pressed
+        for( Character letter : dig_letters.toCharArray() )
+        {
+            // add the char to asf
+            // and make call for each char
+            // of all subsequent digit press
+            printKPC( q_left , asf + letter ) ;
+        }
+        
+        
+    }
+
+}

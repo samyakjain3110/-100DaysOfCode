@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        String str = scn.nextLine() ;
+        
+        ArrayList<String> res = gss(str) ;
+        System.out.println(res) ;
+        
+    }
+
+    public static ArrayList<String> gss(String qsf) {
+        // base case
+        if(qsf.length() <= 0 ) 
+        {
+            ArrayList<String> base = new ArrayList<String> () ;
+            base.add("") ;
+            return base ;
+        }
+        
+        char ch = qsf.charAt(0) ;
+        String q_left = qsf.substring(1) ;
+        
+        ArrayList<String> ch_removed = gss(q_left) ;
+        
+        ArrayList<String> res = new ArrayList<> () ;
+    
+        // char does not get added 
+        for( String st : ch_removed )
+        {
+            res.add(st);
+        }
+    
+        // char gets added 
+        for( String st : ch_removed )
+        {
+            res.add(ch + st) ;
+        }
+        
+        return res ;
+    }
+
+}

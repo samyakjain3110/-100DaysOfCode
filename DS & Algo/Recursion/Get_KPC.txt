@@ -1,0 +1,55 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    static String arr[] = {
+        ".;",
+        "abc",
+        "def",
+        "ghi",
+        "jkl",
+        "mno",
+        "pqrs",
+        "tu",
+        "vwx",
+        "yz"
+    };
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        String str = scn.nextLine();
+        System.out.println( getKPC(str) ) ;
+    }
+
+    public static ArrayList < String > getKPC(String qsf) {
+        // base case
+        if (qsf.length() <= 0) {
+            ArrayList < String > base = new ArrayList < > ();
+            base.add("");
+            return base;
+        }
+
+
+        // get the key to be pressed and its character literals
+        char ch = qsf.charAt(0);
+        int key = (char)(ch - '0');
+        qsf = qsf.substring(1);
+        String key_letters = arr[key];
+
+
+        // append character literals in front of all future messages
+        ArrayList < String > asf = getKPC(qsf);
+        ArrayList < String > updated_asf = new ArrayList < String > ();
+        for (char present_letter: key_letters.toCharArray()) {
+            for (String future_letter: asf) {
+                updated_asf.add(present_letter + future_letter);
+            }
+        }
+
+        // return the updated messages
+        return updated_asf;
+
+    }
+
+}

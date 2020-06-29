@@ -1,0 +1,60 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        int n = scn.nextInt() ;
+        
+        System.out.println(getStairPaths(n) ) ;
+        
+    }
+
+    public static ArrayList<String> getStairPaths(int n) {
+        // base case 
+        if(n == 0)
+        {
+            ArrayList<String> base = new ArrayList<String> () ;
+            base.add("") ;
+            return base ;
+        }
+        
+        ArrayList<String> updated_ans = new ArrayList<> () ;
+        
+        // make calls 1,2,3 if possible
+        if(n - 1 >= 0 )
+        {
+            ArrayList<String> ans = getStairPaths(n - 1) ;
+            for( String future_jump : ans )
+            {
+                updated_ans.add("1" + future_jump ) ;
+            }
+            
+        }
+        if(n - 2 >= 0 )
+        {
+            ArrayList<String> ans = getStairPaths(n - 2) ;
+        
+            for( String future_jump : ans )
+            {
+                updated_ans.add("2" + future_jump ) ;
+            }
+            
+        }
+        if(n - 3 >= 0 )
+        {
+            ArrayList<String> ans = getStairPaths(n - 3) ;
+        
+            for( String future_jump : ans )
+            {
+                updated_ans.add("3" + future_jump ) ;
+            }
+            
+        }
+        
+        // return updated ans with all possible 1,2,3 calls
+        return updated_ans ;
+    }
+
+}

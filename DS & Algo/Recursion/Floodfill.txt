@@ -1,0 +1,71 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        int n = scn.nextInt() ;
+        int m = scn.nextInt() ;
+        
+        int maze[][] = new int[n][m] ;
+        
+        for( int row = 0 ; row <  n ; row++ )
+        {
+            for( int col = 0 ; col < m ; col++ )
+            {
+                maze[row][col] = scn.nextInt() ;
+            }
+        }
+        
+        boolean visited[][] = new boolean[n][m] ;
+        
+        floodfill( maze , 0,0,"",visited ) ;
+        
+    }
+
+    public static void floodfill(int[][] maze, int row, int col, String psf, boolean[][] visited){
+        // base case
+        if( row == maze.length - 1 && col == maze[0].length - 1)
+        {
+            System.out.println(psf) ;
+            return ;
+        }
+        
+        visited[row][col] = true ;
+        
+        // move in all t,l,d,r directions possible
+        
+        // top 
+        if( row - 1 >= 0 && maze[row - 1][col] == 0 && visited[row - 1][col] == false )
+        {
+            // System.out.println("top") ;
+            floodfill(maze , row - 1 , col , psf + "t" ,visited ) ;
+        }
+        
+        // left
+        if( col - 1 >= 0 && maze[row][col - 1] == 0 && visited[row][col - 1] == false )
+        {
+            // System.out.println("left") ;
+            floodfill(maze , row , col - 1 , psf + "l" ,visited ) ;
+        }
+        // down
+        if( row + 1 < maze.length  && maze[row + 1][col] == 0 && visited[row + 1][col] == false )
+        {
+            // System.out.println("down") ;
+            floodfill(maze , row + 1 , col , psf + "d" ,visited ) ;
+        }
+        
+        // right
+        if( col + 1 < maze[0].length && maze[row][col + 1] == 0 && visited[row][col + 1] == false )
+        {
+            // System.out.println("right") ;
+            floodfill(maze , row , col + 1, psf + "r" ,visited ) ;
+            
+        }        
+        
+        // unmark when returning
+        visited[row][col] = false ;
+        
+    }
+}

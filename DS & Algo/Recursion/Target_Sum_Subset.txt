@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        int n = scn.nextInt() ;
+        int values[] = new int[n] ;
+        for( int idx = 0 ; idx < n ; idx++ )
+        {
+            values[idx] = scn.nextInt() ;    
+        }
+        
+        int target = scn.nextInt() ;
+        
+        printTargetSumSubsets( values , 0 , "" , 0 , target ) ;
+        System.out.println() ;
+        
+    }
+
+    // set is the subset
+    // sos is sum of subset
+    // tar is target
+    public static void printTargetSumSubsets(int[] arr, int idx, String set, int sos, int tar) {
+        
+        // check for each next possible value and make it check further 
+        for( int i = idx ; i < arr.length ; i++ )
+        {
+            if( sos + arr[i] <= tar )
+            {
+                String new_set = set + arr[i] + ", " ; 
+                int new_sos = sos + arr[i] ;
+                printTargetSumSubsets(arr , i + 1, new_set , new_sos , tar ) ;
+            }
+        }
+        
+        // base case 
+        if( sos == tar )
+        {
+            System.out.println(set + ".") ;
+            return ;
+        }
+    }
+
+}

@@ -1,0 +1,76 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        int n = scn.nextInt() ;
+        int m = scn.nextInt() ;
+        
+        System.out.println(getMazePaths(0,0,n - 1 , m - 1) ) ;
+    }
+
+    // sr - source row
+    // sc - source column
+    // dr - destination row
+    // dc - destination column
+    public static ArrayList<String> getMazePaths(int sr, int sc, int dr, int dc) {
+        // base case 
+        if( sr == dr && sc == dc)
+        {
+            ArrayList<String> base = new ArrayList<> () ;
+            base.add("") ;
+            return base ;
+        }
+        
+        ArrayList<String> updated_paths = new ArrayList<String> () ;
+        
+        // make all possible calls to h1,h2,..... , v1,v2,..... if possible
+        
+        // h calls
+        for( int idx = 1 ; idx <= dc - sc ; idx++ )
+        {
+            if( sc + idx <= dc )
+            {
+                ArrayList<String> future_paths = getMazePaths(sr , sc + idx ,dr,dc) ; ;
+                for( String future_path : future_paths )
+                {
+                    updated_paths.add("h" + idx + future_path ) ;
+                }
+                
+            }
+        }
+        
+        // v calls
+        for( int idx = 1 ; idx <= dr - sr ; idx++ )
+        {
+            if( sr + idx <= dr )
+            {
+                ArrayList<String> future_paths = getMazePaths(sr + idx, sc,dr,dc) ; ;
+                for( String future_path : future_paths )
+                {
+                    updated_paths.add("v" + idx + future_path ) ;
+                }
+                
+            }
+        }
+        
+        // d calls
+        for( int idx = 1 ; idx <= dr - sr ; idx++ )
+        {
+            if( sr + idx <= dr && sc + idx <= dc )
+            {
+                ArrayList<String> future_paths = getMazePaths(sr + idx, sc + idx,dr,dc) ; ;
+                for( String future_path : future_paths )
+                {
+                    updated_paths.add("d" + idx + future_path ) ;
+                }
+                
+            }
+        }
+        
+        return updated_paths ;
+    }
+
+}

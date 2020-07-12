@@ -1,0 +1,34 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        String str = scn.nextLine() ;
+        
+        int strings_ending_with_a = 0 ;
+        int strings_ending_with_b = 0 ;
+        int strings_ending_with_c = 0 ;
+        
+        for( int idx = 0 ;idx< str.length() ; idx++ )
+        {
+            if(str.charAt(idx) == 'a' )
+            {
+                strings_ending_with_a = (2 * strings_ending_with_a) + 1 ;
+            }
+            if( str.charAt(idx) == 'b' )
+            {
+                strings_ending_with_b = (2 * strings_ending_with_b) + strings_ending_with_a ;
+            }
+            if( str.charAt(idx) == 'c' )
+            {
+                strings_ending_with_c = (2 * strings_ending_with_c) + strings_ending_with_b ;
+            }
+            
+        }
+    
+        System.out.println(strings_ending_with_c) ;
+    
+    }
+}

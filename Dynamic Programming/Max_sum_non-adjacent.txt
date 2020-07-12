@@ -1,0 +1,41 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        int n = scn.nextInt(); 
+        
+        int arr[] = new int[n] ;
+        
+        for( int idx = 0 ; idx< n ; idx++)
+        {
+            arr[idx] = scn.nextInt() ;
+        }
+        
+        int prev_exc_sum = 0 ;
+        int prev_inc_sum = arr[0] ;
+        
+        int curr_inc_sum = 0 ;
+        int curr_exc_sum = 0 ;
+        
+        // traverse the array and find the max sum 
+        // possible if including current idx 
+        // and excluding current idx
+        for( int idx = 1 ; idx < n ;idx++ )
+        {
+            // current ele can be included, only if prev was excluded
+            // current ele can be excluded, even if prev may or may not be excluded
+            curr_inc_sum = prev_exc_sum + arr[idx] ;
+            curr_exc_sum = Math.max(prev_inc_sum , prev_exc_sum) ;
+            
+            // update the prev_including_sum and prev_excluding_sum values
+            prev_inc_sum = curr_inc_sum ;
+            prev_exc_sum = curr_exc_sum ;
+        }
+        
+        System.out.println(Math.max(curr_inc_sum , curr_exc_sum)) ;
+        
+    }
+}

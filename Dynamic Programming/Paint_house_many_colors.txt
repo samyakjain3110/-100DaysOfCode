@@ -1,0 +1,89 @@
+import java.util.* ;
+import java.io.* ;
+
+public class Main{
+    public static void main(String args[])
+    {
+        Scanner scn = new Scanner(System.in) ;
+        int n = scn.nextInt() ;
+        int k = scn.nextInt() ;
+        int cost[][] = new int[n][k] ;
+        long ans = 0 ;
+        
+        for(int row = 0 ; row < n ; row++ )
+        {
+            for(int col = 0 ; col < k ; col++ )
+            {
+                cost[row][col] = scn.nextInt() ;
+            }
+        }
+        
+        // create prev and current min_cost arrays
+        long prev_cost[] = new long[k] ;
+        long curr_cost[] = new long[k] ;
+        
+        long min = Long.MAX_VALUE ;
+        long sec_min = Long.MAX_VALUE ;
+        
+        // get the prev_min_costs for each house
+        for(int col = 0 ; col < k; col++ )
+        {
+            prev_cost[col] = cost[0][col] ;
+            if( prev_cost[col] <= min )
+            {
+                sec_min = min ;
+                min = prev_cost[col] ;
+            }
+            else if( prev_cost[col] <= sec_min )
+            {
+                sec_min = prev_cost[col] ;
+            }
+        }
+        
+        // get the current min cost for painting the current house 
+        // with each color
+        for(int house = 1 ; house < n ; house++ )
+        {
+            long curr_min = Long.MAX_VALUE ;
+            long curr_sec_min = Long.MAX_VALUE ;
+            
+            for( int color = 0 ;color < k ; color++ )
+            {
+                if( prev_cost[color] != min )
+                {
+                    curr_cost[color] = cost[house][color] + min ;
+
+                }
+                else
+                {
+                    curr_cost[color] = cost[house][color] + sec_min ;
+                }
+            }
+            
+            // changing the prev_cost as curr_cost for proceeding to next house
+            for( int color = 0 ; color < k ; color++ )
+            {
+                prev_cost[color]  = curr_cost[color] ;
+                if(curr_cost[color] <= curr_min )
+                {
+                    curr_sec_min = curr_min ;
+                    curr_min = curr_cost[color] ;
+                }
+                else if(curr_cost[color] <= curr_sec_min)
+                {
+                    curr_sec_min = curr_cost[color] ;
+                }
+            }
+            
+            min = curr_min ;
+            sec_min = curr_sec_min ;
+            ans = curr_min ;
+            
+            curr_cost = new long[k] ;
+            
+        }
+        
+        
+        System.out.println(ans) ;
+    }
+}

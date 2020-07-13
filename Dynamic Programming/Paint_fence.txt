@@ -1,0 +1,32 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        int n = scn.nextInt() ;
+        int k = scn.nextInt() ;
+        
+        // create dp 
+        long dp[][] = new long[n][2] ;
+        
+        // base case
+        dp[0][0] = dp[0][1] = dp[1][0] = k ;
+        dp[1][1] = k * (k - 1) ; 
+        
+        // traverse each fence and find out the possibilities
+        // for same and different colors to be painted
+        for(int row = 2 ; row < n ; row++ )
+        {
+            // same = (diff) * 1 ;
+            dp[row][0] = dp[row - 1][1] ; 
+            
+            // diff = (same + diff) * (k - 1)
+            dp[row][1] = (dp[row - 1][0] + dp[row - 1][1]) * 
+            (k - 1) ;
+        }
+        
+        System.out.println(dp[n - 1][0] + dp[n - 1][1]) ;
+    }
+}

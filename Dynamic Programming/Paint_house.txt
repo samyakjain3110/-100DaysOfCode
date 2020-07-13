@@ -1,0 +1,43 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        int n = scn.nextInt() ;
+        int cost[][] = new int[3][n] ; 
+        
+        for( int col = 0 ; col < n ;col++ )
+        {
+            for( int row = 0; row < 3 ; row++ )
+            {
+                cost[row][col] = scn.nextInt() ;
+            }
+        }
+        
+        long prev_red_cost = cost[0][0] ;
+        long prev_blue_cost = cost[1][0] ;
+        long prev_green_cost = cost[2][0] ;
+        
+        long red_cost = 0 ;
+        long blue_cost = 0 ; 
+        long green_cost = 0 ;
+        
+        for( int col = 1 ; col < n ; col++ )
+        {
+            red_cost = cost[0][col] + Math.min(prev_blue_cost, prev_green_cost) ;
+            blue_cost = cost[1][col] + Math.min(prev_red_cost, prev_green_cost) ;
+            green_cost = cost[2][col] + Math.min(prev_red_cost, prev_blue_cost) ;
+            
+            // update the prev values
+            prev_red_cost = red_cost ;
+            prev_blue_cost = blue_cost ;
+            prev_green_cost = green_cost ; 
+            
+        }
+        
+        System.out.println(Math.min( red_cost, Math.min(green_cost, blue_cost)) ) ;
+        
+    }
+}

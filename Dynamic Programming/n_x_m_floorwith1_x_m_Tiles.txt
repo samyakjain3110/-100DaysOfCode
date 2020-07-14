@@ -1,0 +1,38 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        int length = scn.nextInt() ;
+        int breadth = scn.nextInt() ;
+    
+        // create dp
+        int dp[] = new int[length + 1] ;
+        
+        // base case 
+        dp[1] = 1 ; 
+        
+        // for length 1 , only 1 vertical tile possible
+        // for case < breadth , only vertical tiles possible
+        // for case == breadth , 2 arrangements(all v or all h)
+        for( int length_idx = 2 ; length_idx <= length ; length_idx++ )
+        {
+            if( length_idx < breadth)
+            {
+                dp[length_idx] = 1 ;
+            }
+            else if( length_idx == breadth )
+            {
+                dp[length_idx] = 2 ;
+            }
+            else
+            {
+                dp[length_idx] = dp[length_idx - 1] + dp[length_idx - breadth] ;
+            }
+        }
+        
+        System.out.println(dp[length]) ;
+    }
+}

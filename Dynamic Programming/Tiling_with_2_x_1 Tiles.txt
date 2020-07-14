@@ -1,0 +1,30 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        int n = scn.nextInt() ;
+        
+        // create dp
+        int dp[] = new int[n] ;
+        
+        // base case
+        // for n = 1, we can place only vertically 1 tile
+        dp[0] = 1 ;
+        // for n = 2 , we can place, 2 tiles v ,or 2 tiles h
+        dp[1] = 2 ;
+        
+        // we have 2 ways to place tiles
+        // v -> i - 1 length to fill
+        // h -> i - 2 length left to fill
+        for( int i = 2 ; i < n ; i++ )
+        {
+            dp[i] = dp[i - 1] + dp[i - 2] ;
+        }
+        
+        System.out.println(dp[n - 1]) ;
+        
+    }
+}

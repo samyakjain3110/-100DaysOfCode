@@ -1,0 +1,44 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] prices = new int[n];
+        for(int i = 0;i<n;i++)
+        prices[i] = scn.nextInt();
+        
+        System.out.println(buy_sell(prices,new int[n]) );
+    }
+
+    public static int buy_sell(int[] prices,int dp[])
+    {
+        int n = prices.length;
+        int buy_point = 0; 
+        int sell_point = 0;
+        int net_profit = 0;
+        for(int i = 0;i<n - 1;i++)
+        {
+           if(prices[i + 1]<=prices[i]) // loss ho jayega aage sell abhi krdo
+           {
+               net_profit += prices[sell_point] - prices[buy_point];
+               buy_point = i + 1;
+               sell_point = i + 1;
+           }
+           else 
+           {
+               sell_point = i + 1;  // aage profit h,
+                              // wait till we get max sale_value
+           }
+        }
+        net_profit += prices[sell_point] - prices[buy_point]; 
+        // last day sell krdo
+        // values pehle hi update ho  gyi agar ye loss de rha hoga 
+        // to buy_point bhi ye ban chuka hoga pehle hi
+                                        
+        return net_profit;   
+    }
+
+}

@@ -1,0 +1,41 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        int n = scn.nextInt() ;
+        
+        int price[] = new int[n] ;
+        
+        // take input
+        for(int idx = 0 ; idx < n ;idx++ )
+        {
+            price[idx] = scn.nextInt() ;
+        }
+        
+        int profit_till_now = 0;
+        int min = price[0] ;
+        
+        // traverse the prices and find the max profit
+        for( int idx = 0 ; idx < n; idx++ )
+        {
+            int curr_profit = price[idx] - min ;
+            if( curr_profit > profit_till_now )
+            {
+                profit_till_now = curr_profit ;
+            }
+            
+            if( price[idx] < min )
+            {
+                min = price[idx] ;
+            }
+            
+        }
+        
+        System.out.println( profit_till_now ) ;
+        
+    }
+
+}

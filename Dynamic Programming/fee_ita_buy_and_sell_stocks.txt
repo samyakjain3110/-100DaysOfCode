@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        int n = scn.nextInt() ;
+        int price[] = new int[n] ;
+        
+        for( int idx = 0 ; idx < n ; idx++ )
+        {
+            price[idx] = scn.nextInt() ;
+        }
+        
+        int fine = scn.nextInt() ;
+        
+        // plbuy -> profit left on buy 
+        // plsell -> profit left on sell
+        
+        // base case
+        int plbuy = 0 - price[0] ;
+        int plsell = 0 ;
+        
+        // traverse each day 
+        // find max profit left for buy and sell till this day
+        for( int day = 1 ; day < n ; day++ )
+        {
+            // check if it is profitable to buy today
+            // after sold previously
+            // else keep the profit till prev buy static
+            int plbuy_now = Math.max(plsell - price[day],plbuy) ; 
+            // if we sell today , and get more profit 
+            // change your past sell as sell today
+            // else keep the profit due to prev. sell static
+            int plsell_now = Math.max(plbuy + price[day] - fine,plsell) ;
+        
+            plbuy = plbuy_now ;
+            plsell = plsell_now ;
+        }
+        
+        System.out.println(plsell) ;
+        
+    }
+
+}

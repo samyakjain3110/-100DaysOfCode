@@ -1,0 +1,47 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in) ;
+        int n = scn.nextInt() ;
+        int price[] = new int[n] ;
+        
+        for( int i = 0 ;i < n ; i++ )
+        {
+            price[i] = scn.nextInt() ;
+        }
+        
+        // plbuy -> profit left on buy
+        // plsell -> profit left on sell
+        // 0 -> today 
+        // 1 -> 1 day before (max till 1 day before) 
+        // 2 -> 2 days before (max till 2 day before) 
+        
+        int plbuy0,plbuy1 ;
+        int plsell0, plsell1 ,plsell2 ;
+        
+        // base case 
+        plbuy0 = plbuy1 = 0 - price[0] ;
+        plsell0 = plsell1 = plsell2 = 0 ;
+        
+        
+        // compare 
+        // 1. profit left on buy yesterday vs buy today after sell 2 days before
+        // 2. profit left on sell yesterday vs sell today with prev buy 
+        for( int day = 1 ; day < n ;day++ )
+        {
+            plbuy0 = Math.max(plbuy1 , plsell2 - price[day] ) ;
+            plsell0 = Math.max(plsell1 , plbuy1 + price[day]) ;
+            
+            // update the values
+            plbuy1 = plbuy0 ;
+            plsell2 = plsell1 ;
+            plsell1 = plsell0 ;
+        }
+        System.out.println(plsell0) ;
+    
+    }   
+
+}

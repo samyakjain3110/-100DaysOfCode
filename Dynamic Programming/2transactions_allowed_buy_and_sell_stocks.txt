@@ -1,0 +1,79 @@
+import java.util.* ;
+
+public class Main{
+    public static void main(String args[]){
+        Scanner scn = new Scanner(System.in) ;
+        int n = scn.nextInt() ;
+        int price[] = new int[n] ;
+        
+        // take input 
+        for( int day = 0 ; day < n ; day++ )
+        {
+            price[day] = scn.nextInt() ;
+        }
+        
+        // pminp -> profit with known min from past
+        // pmaxf -> profit with known max from future
+        
+        int pminp[] = new int[n] ;
+        int pmaxf[] = new int[n] ; 
+        int min = price[0] ;
+        int max = price[n - 1] ;
+        
+        // traverse from first day to last day
+        // and find the min till now
+        // and max possible profit till now
+        for( int day = 1 ; day < n ;day++ )
+        {
+            if( price[day] < min )
+            {
+                min = price[day] ;
+            }
+            
+            if(price[day] - min > pminp[day - 1])
+            {
+                pminp[day] = price[day] - min ;
+            }
+            else
+            {
+                pminp[day] = pminp[day - 1] ;
+            }
+        }
+        
+        
+        // traverse from last day to first day
+        // and find the max in future or today
+        // and max profit possible in future sell
+        // if buy today vs if buy in furture
+        for( int day = n - 2; day>= 0 ; day-- )
+        {
+            if( price[day] > max )
+            {
+                max = price[day] ;
+            }
+            if( max - price[day] > pmaxf[day + 1] )
+            {
+                pmaxf[day] = max - price[day] ;
+            }
+            else
+            {
+                pmaxf[day] = pmaxf[day + 1] ;
+            }
+        }
+        
+        int max_profit = 0 ;
+        // use max profit array for 1 transaction
+        // using past min and future max
+        // and find max profit for 2 transactions
+        // 1 done before this day and 1 to be day after this day
+        for( int day = 0 ;day < n ; day++ )
+        {
+            if( pminp[day] + pmaxf[day] > max_profit )
+            {
+                max_profit = pminp[day] + pmaxf[day] ;
+            }
+        }
+        
+        System.out.println(max_profit) ;
+    }
+}

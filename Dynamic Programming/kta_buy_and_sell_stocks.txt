@@ -1,0 +1,34 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        // write your code here
+        
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] price = new int[n];
+        for(int i = 0;i<n;i++){
+            price[i] = scn.nextInt();
+        }
+        int k = scn.nextInt();
+        int dp[][] = new int[k+1][n]; 
+        for(int i = 1;i<= k;i++)
+        {
+            for(int j = 1;j<n;j++)
+            {
+                int maxProfit = Integer.MIN_VALUE;
+                for(int x = 0;x<j;x++)
+                {
+                    int ct = price[j] - price[x] + dp[i - 1][x];
+                    maxProfit = Math.max(maxProfit , ct);
+                }
+                maxProfit = Math.max(dp[i][j - 1], maxProfit);
+                dp[i][j] = maxProfit;
+            }
+        }
+        System.out.println(dp[k][n - 1]);
+        
+    }
+
+}
